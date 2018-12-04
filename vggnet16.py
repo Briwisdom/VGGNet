@@ -28,9 +28,6 @@ def fc(name, x, w, b):
 
 
 def vgg_net(_X, _weights, _biases, keep_prob):
-    # x_shape = _X.get_shape()
-    # _X = tf.reshape(_X, shape=[-1, x_shape[1].value, x_shape[2].value, x_shape[3].value])
-
     conv1_1 = conv('conv1_1', _X, _weights['wc1_1'], _biases['bc1_1'])
     conv1_2 = conv('conv1_2', conv1_1, _weights['wc1_2'], _biases['bc1_2'])
     pool1 = max_pool('pool1', conv1_2, k=2)
@@ -109,8 +106,6 @@ biases={
 }
 
 def train(learning_rate = 0.001,batch_size = 500,max_iters = 20000,sample_size=48):
-    # n_input = sample_size * sample_size * 1
-
     x = tf.placeholder(tf.float32, [None, sample_size,sample_size,1])
     y = tf.placeholder(tf.float32, [None, 7])
     keep_prob = tf.placeholder(tf.float32)
@@ -123,9 +118,9 @@ def train(learning_rate = 0.001,batch_size = 500,max_iters = 20000,sample_size=4
 
     target = sciio.loadmat('E:/ice_experiment_lmh/Sequential/icematdata/resnet_48pixel-7class')
     train_x = target['train_x']
-    test_x = target['test_x'][:3000,:]
+    test_x = target['test_x']
     train_y = target['train_y']
-    test_y = target['test_y'][:3000,:]
+    test_y = target['test_y']
     print('read data finished')
     print('start training...')
 
